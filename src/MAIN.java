@@ -30,13 +30,13 @@ public class MAIN {
                     file_ops fo = new file_ops();
                     fo.main();
                 }
-                case 3 -> {
+                default -> {
                     System.out.println("\n\n");
-                    System.out.println("------------------------------------------------------------------");
-                    System.out.println("\t\t ------------------------------");
-                    System.out.println("\t\t      CLOSING APPLICATION");
-                    System.out.println("\t\t ------------------------------");
-                    System.out.println("------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------");
+                    System.out.println("\t\t\t ------------------------------");
+                    System.out.println("\t\t\t      CLOSING APPLICATION");
+                    System.out.println("\t\t\t ------------------------------");
+                    System.out.println("---------------------------------------------------------------");
                 }
             }
 

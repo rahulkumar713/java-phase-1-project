@@ -7,25 +7,39 @@ public class file_ops {
 
     public static  void createFile() throws IOException
     {
-        Scanner crf = new Scanner(System.in);
-        retrive_files obj = new retrive_files();
+        try {
+            Scanner crf = new Scanner(System.in);
+            retrive_files obj = new retrive_files();
 
-        System.out.println("Enter the file name you want to create (with extension)");
-        String str = crf.nextLine();
-        StringBuilder stb = new StringBuilder("E:\\Virtual Key for Your Repositories\\src\\");
-        stb.append(str);
-        obj.updateAllFiles(str);
-        File nfile = new File(stb.toString());
-        if(nfile.createNewFile())
-        {
-            System.out.println("***** file is created *****");
+            System.out.println("Enter the file name you want to create");
+            String str1 = crf.nextLine();
+            StringBuilder ff = new StringBuilder(str1.toLowerCase());
+            ff.append(".txt");
+            String str = ff.toString();
+            StringBuilder stb = new StringBuilder("E:\\Virtual Key for Your Repositories\\src\\files\\");
+            stb.append(str);
+            obj.updateAllFiles(str);
+            File nfile = new File(stb.toString());
+            if (nfile.createNewFile()) {
+                System.out.println("*************************************");
+                System.out.println("FILE CREATION  :-> SUCCESSFUL");
+                System.out.println("*************************************");
+            }
+            System.out.println("------------------------------");
+            System.out.println("press 1 for writing");
+            System.out.println("Else press 0 ");
+            int b = crf.nextInt();
+            System.out.println("------------------------------");
+            if (b == 1) {
+                WriteFile(stb.toString());
+            }
         }
-        System.out.println("press 1 for writing");
-        System.out.println("Else press 0 ");
-        int b =crf.nextInt();
-        if(b == 1)
+        catch (Exception e)
         {
-            WriteFile(stb.toString());
+            System.out.println(e);
+            System.out.println("*************************************");
+            System.out.println("FILE CREATION  :-> FAILED");
+            System.out.println("*************************************");
         }
     }
 
@@ -39,8 +53,14 @@ public class file_ops {
             }
             fin.close();
             System.out.println(" ");
+            System.out.println("*************************************");
+            System.out.println("READING  :-> SUCCESSFUL");
+            System.out.println("*************************************");
         }catch(Exception e){
             System.out.println(e);
+            System.out.println("*************************************");
+            System.out.println("READING  :-> FAILED");
+            System.out.println("*************************************");
         }
     }
 
@@ -48,80 +68,66 @@ public class file_ops {
     {
         try{
             Scanner wf = new Scanner(System.in);
-            System.out.println("### what you want to write ###");
+            System.out.println("------------------------------");
+            System.out.println("***** what you want to write *****");
             String Str = wf.nextLine();
             FileOutputStream fout = new FileOutputStream(filename);
             byte b[] = Str.getBytes();
             fout.write(b);
+            System.out.println("------------------------------");
             fout.close();
+            System.out.println("*************************************");
+            System.out.println("WRITING  :-> SUCCESSFUL");
+            System.out.println("*************************************");
         }
         catch(Exception e)
         {
             System.out.println(e);
+            System.out.println("*************************************");
+            System.out.println("WRITING  :-> FAILED");
+            System.out.println("*************************************");
         }
     }
 
-    public static void ModifyFile(String filename) {
-
-        Scanner mf = new Scanner(System.in);
-        System.out.println("Enter Old Data");
-        String olddata = mf.nextLine();
-        System.out.println("Enter New Data");
-        String newdata = mf.nextLine();
-        File fileToBeModified= new  File(filename);
-        String fileData="";
-        BufferedReader reader=  null;
-        FileWriter writer=null;
-
-
-        try {
-            reader= new BufferedReader(new FileReader(fileToBeModified));
-            String line= reader.readLine();
-
-            while(line!=null) {
-                fileData= fileData+line+System.lineSeparator();
-                line=reader.readLine();
-            }
-
-
-            String newFiledata= fileData.replaceAll(olddata, newdata);
-
-            writer = new FileWriter(fileToBeModified);
-            writer.write(newFiledata);
-
-        } catch (Exception e) {
-            System.out.println("Error: "+e);
-        }
-        finally {
-
-            try {
-                reader.close();
-                writer.close();
-
-            } catch (IOException e2) {
-            }
-
-        }
-
-    }
 
     public static void appendFile(String filename) throws IOException {
+        try
+        {
         String app ;
         Scanner ap = new Scanner(System.in);
+        System.out.println("------ Enter what you want to append -----");
+        System.out.println("------------------------------");
         app = ap.nextLine();
         BufferedWriter b = new BufferedWriter(new FileWriter(filename , true));
         b.write("\n");
         b.write(app);
+        System.out.println("------------------------------");
         b.close();
+        System.out.println("*************************************");
+        System.out.println("WRITING  :-> SUCCESSFUL");
+        System.out.println("*************************************");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("*************************************");
+            System.out.println("WRITING  :-> FAILED");
+            System.out.println("*************************************");
+        }
+
     }
 
     public static void DeleteFile(String filename) throws IOException {
         Path path = Paths.get(filename);
         try {
             if (Files.deleteIfExists(path)) {
-                System.out.println("***** file deleted *****");
+                System.out.println("*************************************");
+                System.out.println("DELETION  :-> SUCCESSFUL");
+                System.out.println("*************************************");
             } else {
-                System.out.println("file is not deleted");
+                System.out.println("*************************************");
+                System.out.println("DELETION  :-> FAILED");
+                System.out.println("*************************************");
             }
         }
         catch (Exception e)
@@ -140,13 +146,14 @@ public class file_ops {
             while(num < 3)
             {
                 System.out.println("*************************************");
-                System.out.println("press");
+                System.out.println("\t PRESS");
                 System.out.println("1 :-> To Create File");
                 System.out.println("2 :-> To Perform operation");
                 System.out.println("3 :-> BACK ");
-                System.out.println("*************************************");
+                System.out.print("Enter your choice : ");
                 num  = sc.nextInt();
                 sc.nextLine();
+                System.out.println("*************************************");
                 switch (num)
                 {
                     case 1 -> createFile();
@@ -154,33 +161,38 @@ public class file_ops {
                         System.out.println("*************************************");
                         System.out.println("\t PRESS");
                         System.out.println("1. To Read File");
-                        System.out.println("2. To Write File");
-                        System.out.println("3. To Delete File");
-                        System.out.println("4. To Append File");
-                        System.out.println("5. To Modify File");
-                        System.out.println("6. BACK ");
+                        System.out.println("2. To Delete File");
+                        System.out.println("3. To Append File");
+                        System.out.println("4. BACK ");
                         System.out.print("Enter your choice : ");
                         int op_num = sc.nextInt();
                         sc.nextLine();
                         System.out.println("*************************************");
+
+                        if(op_num >= 4)
+                        {
+                            break;
+                        }
+
                         System.out.println("Search the file on which you want to do operation");
-                        String filenameStr = sc.nextLine();
+                        String filenameStr1 = sc.nextLine();
                         System.out.println("------------------------------");
-                        StringBuilder filename = new StringBuilder("E:\\Virtual Key for Your Repositories\\src\\");
-                        filename.append(filenameStr);
+                        StringBuilder ff = new StringBuilder(filenameStr1.toLowerCase());
+                        ff.append(".txt");
+                        String filenameStr = ff.toString();
+                        StringBuilder filename = new StringBuilder("E:\\Virtual Key for Your Repositories\\src\\files\\");
+                        filename.append(filenameStr.toLowerCase());
                         if(rf.search(filenameStr)) {
 
                             switch (op_num)
                             {
                                 case 1 -> ReadFile(filename.toString());
-                                case 2 -> WriteFile(filename.toString());
-                                case 3 -> {
+                                case 2 -> {
                                     DeleteFile(filename.toString());
                                     rf.RemoveFileFromAllFiles(filenameStr);
-                                    rf.RemoveFileFromAllFiles("\n");
                                 }
-                                case 4 -> appendFile(filename.toString());
-                                case 5 -> ModifyFile(filename.toString());
+                                case 3 -> appendFile(filename.toString());
+                                default -> System.out.println(" MOVING BACK ");
                             }
                         }
                         else{
@@ -188,6 +200,7 @@ public class file_ops {
                             continue;
                         }
                         }
+                    default -> System.out.println(" MOVING BACK ");
                     }
                 }
         } catch (Exception e) {
